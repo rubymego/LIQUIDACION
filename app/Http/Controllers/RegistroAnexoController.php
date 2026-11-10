@@ -30,7 +30,7 @@ class RegistroAnexoController extends Controller
             'tiposSupervision' => RegistroAnexo::query()->whereNotNull('tipo_supervision')->where('tipo_supervision', '!=', '')->distinct()->orderBy('tipo_supervision')->pluck('tipo_supervision'),
             'personalEsOptions' => RegistroAnexo::query()->whereNotNull('personal_es')->where('personal_es', '!=', '')->distinct()->orderBy('personal_es')->pluck('personal_es'),
             'meses' => $this->meses(),
-            'anios' => RegistroAnexo::query()->selectRaw('YEAR(created_at) as anio')->whereNotNull('created_at')->distinct()->orderByDesc('anio')->pluck('anio')->filter(),
+            'anios' => RegistroAnexo::query()->selectRaw('CAST(strftime(\'%Y\', created_at) AS INTEGER) as anio')->whereNotNull('created_at')->distinct()->orderByDesc('anio')->pluck('anio')->filter(),
                     ]);
     }
 
